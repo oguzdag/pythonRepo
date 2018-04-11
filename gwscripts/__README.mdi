@@ -1,0 +1,62 @@
+## Information
+
+This code is designed for Python 2.6.x+, and using pexpect 2.4 because of limitation
+
+This code is designed to run multiple shell commands on multiple hosts using password/or passwordless communication. It also supports (su -) using root password
+
+## Commandfile
+
+### general
+```
+user - username to login to servers 
+usepassword - True (use passwords from host file) / False (do not use passwords from host file) 
+ Choose False if you have ssh keys exchanged and if you access to servers without password 
+multithread - True (run all hosts as parallel) / False (run all hosts as serial)   
+seperatorChar - This is the character to use splitting host files into host/pass/pass
+ normally (|) will be ok, but some passwords contains (|)
+ ```
+ 
+### files
+```
+transfer - True (copy files to server before running commands) / False (do not copy any file to server) 
+filetocopy - list of files, multiple files/folders can be transferred using space between filenames 
+destination - where to transfer files on server side, multiple location is not allowed   
+```
+ 
+### commands
+```
+commandrun - True (run commands) / False (do not run any commands) 
+ False option can be used for only file transfer 
+longRunningTimeout - timeout for commands in longRunningCommandList 
+ Default timeout is 30 seconds 
+longRunningCommandList - list of commands which marked as long running, these commands will use timeout of longRunningTimeout
+commandlist - list of commands which will be run during execution of script # Each line represents one command # All commands will be executed in given order
+```
+
+## Hostfile
+
+all hosts should be listed in this file
+
+line consists three elements (which is separated using (|))
+ 
+hostnam1|pass11|pass12
+
+hostnam1 - host to connect
+
+pass11 - login user password
+
+pass12 - root password (if commandList includes (su -) script will use this password)
+
+## required module
+
+pexepct 2.4
+
+this module absolutely required for this script to run. Script is using pexpect and pxssh libraries.
+
+
+
+## Usage :
+
+python commandExecutor.py -s ServerListFile -c commandListFile
+
+python commandExecutor_wPass.py -s host_Test.ozi -c cl_dummy_testing.ozi

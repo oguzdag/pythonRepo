@@ -1,0 +1,37 @@
+[general] 
+user=wasadm 
+# user - username to login to servers 
+usepassword=False 
+# usepassword - True (use passwords from host file) / False (do not use passwords from host file) 
+# Choose False if you have ssh keys exchanged and if you access to servers without password 
+multithread=True 
+# multithread - True (run all hosts as parallel) / False (run all hosts as serial)   
+seperatorChar=|
+# seperatorChar - This is the character to use splitting host files into host/pass/pass
+# normally (|) will be ok, but some passwords contains (|)
+ 
+[files] 
+transfer=True 
+# transfer - True (copy files to server before running commands) / False (do not copy any file to server) 
+filetocopy=filename1 filename2 foldername1
+# filetocopy - list of files, multiple files/folders can be transferred using space between filenames 
+destination=/tmp 
+# destination - where to transfer files on server side, multiple location is not allowed   
+ 
+[commands] 
+commandrun=True 
+# commandrun - True (run commands) / False (do not run any commands) 
+# False option can be used for only file transfer 
+longRunningTimeout=100 
+# longRunningTimeout - timeout for commands in longRunningCommandList 
+# Default timeout is 30 seconds 
+longRunningCommandList= 
+	uptime
+# longRunningCommandList - list of commands which marked as long running, these commands will use timeout of longRunningTimeout
+commandlist= 
+	uptime
+	pwd
+	su -
+	pwd	
+	exit
+# commandlist - list of commands which will be run during execution of script # Each line represents one command # All commands will be executed in given order

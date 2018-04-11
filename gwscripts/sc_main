@@ -1,0 +1,43 @@
+[default]
+seperator=|
+name=wrapper_onebyone
+
+[step 01]
+name=LocalCommandExecute
+description=Convert all localScripts files from dos to unix
+enabled=True
+multithread=False
+commandfile=scenario/wrapper_onebyone/lc_dos2unix
+hostfile=
+
+[step 02]
+name=RemoteCommandExecute
+description=Check remote folder exists, if so, delete it
+enabled=False
+multithread=True
+commandfile=scenario/wrapper_onebyone/rc_cleanup
+hostfile=hosts/hostTest
+
+[step 03]
+name=FileCopyToRemote
+description=Copy localScripts to remote /tmp
+enabled=False
+multithread=True
+commandfile=scenario/wrapper_onebyone/fctr_localscripts
+hostfile=hosts/hostTest
+
+[step 04]
+name=RemoteCommandExecute
+description=Run wrapper change
+enabled=False
+multithread=False
+commandfile=scenario/wrapper_onebyone/rc_wrapperchange
+hostfile=hosts/hostTest
+
+[step 05]
+name=RemoteCommandExecute
+description=Clean up
+enabled=False
+multithread=True
+commandfile=scenario/wrapper_onebyone/rc_cleanup
+hostfile=hosts/hostTest
